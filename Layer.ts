@@ -6,7 +6,12 @@ export class Layer extends Instance {
     super({});
   }
 
+  sortOrder() {
+    this.childrens.sort((prev, next) => next.z - prev.z);
+  }
+
   override update(): void {
+    this.sortOrder();
     this.childrens.forEach((children) => children.update());
   }
   override render(context: CanvasRenderingContext2D): void {

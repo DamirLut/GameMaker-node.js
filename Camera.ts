@@ -36,7 +36,7 @@ export class Camera {
   }
   set() {
     Engine.current.applicationSurface.context.save();
-    Engine.current.applicationSurface.context.translate(-this.x, -this.y);
+    Engine.current.applicationSurface.context.translate(-~~this.x, -~~this.y);
   }
   reset() {
     Engine.current.applicationSurface.context.restore();

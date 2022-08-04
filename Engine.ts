@@ -2,11 +2,12 @@ import { EventEmitter } from './utils/EventEmitter';
 import { Layer } from './Layer';
 import { Surface } from './Graphics/Surface';
 import { Camera } from './Camera';
+import { Keyboard, Mouse } from './Input';
 
 export interface EngineConfig {
   headless: boolean;
   fps: number;
-  gameSize: {
+  gameSize?: {
     width: number;
     height: number;
   };
@@ -28,7 +29,8 @@ export class Engine extends EventEmitter {
     if (!config.headless) {
       this.applicationSurface = new Surface(config.gameSize.width, config.gameSize.height);
       this.camera = new Camera(config.gameSize);
-      new Mouse();
+      new Mouse(this);
+      new Keyboard(this);
 
       requestAnimationFrame(this.render.bind(this));
     }
@@ -47,19 +49,5 @@ export class Engine extends EventEmitter {
     this.root.render(this.applicationSurface.context);
     this.camera.reset();
     requestAnimationFrame(this.render.bind(this));
-  }
-}
-
-export class Mouse {
-  static x = 0;
-  static y = 0;
-
-  constructor() {
-    const { camera } = Engine.current;
-
-    window.addEventListener('mousemove', (e) => {
-      Mouse.x = Math.floor((e.clientX - camera.xoffset) / camera.aspect + camera.x);
-      Mouse.y = Math.floor((e.clientY - camera.yoffset) / camera.aspect + camera.y);
-    });
   }
 }

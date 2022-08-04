@@ -86,8 +86,8 @@ export class Sprite extends EventEmitter {
   ) {
     if (!this.ready) return;
     context.save();
-    context.translate(x, y);
-    context.rotate(rotate);
+    context.translate(~~x, ~~y);
+    context.rotate((rotate * Math.PI) / 180);
     context.scale(frameXScale, frameYScale);
     context.drawImage(
       this.image,
