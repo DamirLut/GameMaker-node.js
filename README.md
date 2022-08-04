@@ -1,4 +1,4 @@
-# GameMaker-node.js (js framework)
+# GameMaker-node.js (js game framework)
 
 # No usable version for production 
 
